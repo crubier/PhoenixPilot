@@ -9,7 +9,7 @@
       <logging updatemode="periodic" period="1000"/>
     </meta>
     <data>
-      <data name="Alarm" units="" type="enum" options="Uninitialised,OK,Warning,Error,Critical" elementnames="OutOfMemory,CPUOverload,StackOverflow,SystemConfiguration,EventSystem,Telemetry,ManualControl,Actuator,Attitude,Sensors,Stabilization,Guidance,Battery,FlightTime, I2C,GPS,BootFault" defaultvalue="Uninitialised"/>
+      <data name="Alarm" units="" type="enum" options="Uninitialised,OK,Warning,Error,Critical" elementnames="OutOfMemory,CPUOverload,StackOverflow,SystemConfiguration,EventSystem,Telemetry,ManualControl,Actuator,Attitude,Sensors,Stabilization,Guidance,PathPlanner,Battery,FlightTime, I2C,GPS,BootFault" defaultvalue="Uninitialised"/>
     </data>
   </object>
 </xml>

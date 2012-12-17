@@ -12,25 +12,38 @@
       <data name="CC_RcvrPort" units="function" type="enum" elements="1" options="Disabled,PWM,PPM,PPM+PWM,PPM+Outputs,Outputs" defaultvalue="PWM"/>
       <data name="CC_MainPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,S.Bus,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Telemetry"/>
       <data name="CC_FlexiPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,I2C,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Disabled"/>
+
       <data name="RV_RcvrPort" units="function" type="enum" elements="1" options="Disabled,PWM,PPM,PPM+Outputs,Outputs" defaultvalue="PWM"/>
       <data name="RV_AuxPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,DSM2,DSMX (10bit),DSMX (11bit),ComAux,ComBridge" defaultvalue="Disabled"/>
       <data name="RV_AuxSBusPort" units="function" type="enum" elements="1" options="Disabled,S.Bus,DSM2,DSMX (10bit),DSMX (11bit),ComAux,ComBridge" defaultvalue="Disabled"/>
       <data name="RV_FlexiPort" units="function" type="enum" elements="1" options="Disabled,I2C,DSM2,DSMX (10bit),DSMX (11bit),ComAux,ComBridge" defaultvalue="Disabled"/>
       <data name="RV_TelemetryPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,ComAux,ComBridge" defaultvalue="Telemetry"/>
       <data name="RV_GPSPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,ComAux,ComBridge" defaultvalue="GPS"/>
+
       <data name="RM_RcvrPort" units="function" type="enum" elements="1" options="Disabled,PWM,PPM,PPM+PWM,PPM+Outputs,Outputs" defaultvalue="PWM"/>
       <data name="RM_MainPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,S.Bus,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Telemetry"/>
       <data name="RM_FlexiPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,I2C,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Disabled"/>
+
       <data name="Freedom_Output" units="function" type="enum" elements="1" options="Disabled,PWM" defaultvalue="PWM"/>
       <data name="Freedom_MainPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Telemetry"/>
       <data name="Freedom_FlexiPort" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,I2C,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="GPS"/>
       <data name="Freedom_RcvrPort" units="function" type="enum" elements="1" options="Disabled,PPM,DSM2,DSMX (10bit),DSMX (11bit),S.Bus," defaultvalue="Disabled"/>
+
       <data name="Quanton_RcvrPort" units="function" type="enum" elements="1" options="Disabled,PWM,PPM,PPM+PWM,PPM+Outputs,Outputs" defaultvalue="PWM"/>
       <data name="Quanton_Uart1" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,I2C,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Disabled"/>
       <data name="Quanton_Uart2" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,S.Bus,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Disabled"/>
       <data name="Quanton_Uart3" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,I2C,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Disabled"/>
       <data name="Quanton_Uart4" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Telemetry"/>
       <data name="Quanton_Uart5" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="GPS"/>
+
+      <data name="DIF4_MainPort" units="function" type="enum" elements="1" options="Disabled,DebugConsole" defaultvalue="DebugConsole"/>
+
+      <data name="FlyingF4_RcvrPort" units="function" type="enum" elements="1" options="Disabled,PWM,PPM,PPM+PWM,PPM+Outputs,Outputs" defaultvalue="PWM"/>
+      <data name="FlyingF4_Uart1" units="function" type="enum" elements="1" options="Disabled,GPS,S.Bus,DSM2,DSMX (10bit),DSMX (11bit)" defaultvalue="Disabled"/>
+      <data name="FlyingF4_Uart2" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Disabled"/>
+      <data name="FlyingF4_Uart3" units="function" type="enum" elements="1" options="Disabled,Telemetry,GPS,DSM2,DSMX (10bit),DSMX (11bit),DebugConsole,ComBridge" defaultvalue="Disabled"/>
+
+
       <data name="TelemetrySpeed" units="bps" type="enum" elements="1" options="2400,4800,9600,19200,38400,57600,115200" defaultvalue="57600"/>
       <data name="GPSSpeed" units="bps" type="enum" elements="1" options="2400,4800,9600,19200,38400,57600,115200" defaultvalue="57600"/>
       <data name="ComUsbBridgeSpeed" units="bps" type="enum" elements="1" options="2400,4800,9600,19200,38400,57600,115200" defaultvalue="57600"/>
