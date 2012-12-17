@@ -1,11 +1,13 @@
-#####
-# Project: OpenPilot RevoMini
-#
-#
-# Makefile for OpenPilot RevoMini project
-#
-# The OpenPilot Team, http://www.openpilot.org, Copyright (C) 2012.
-#
+###############################################################################
+# @file       Makefile
+# @author     The OpenPilot Team, http://www.openpilot.org, Copyright (C) 2012.
+# @author     PhoenixPilot, http://github.com/PhoenixPilot, Copyright (C) 2012
+# @addtogroup 
+# @{
+# @addtogroup 
+# @{
+# @brief Makefile to build firmware for the RevoMini board.
+###############################################################################
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +22,7 @@
 # You should have received a copy of the GNU General Public License along
 # with this program; if not, write to the Free Software Foundation, Inc.,
 # 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-#####
+#
 
 WHEREAMI := $(dir $(lastword $(MAKEFILE_LIST)))
 TOP      := $(realpath $(WHEREAMI)/../../../)
@@ -79,6 +81,8 @@ STMLIBDIR = $(APPLIBDIR)
 STMSPDDIR = $(STMLIBDIR)/STM32F4xx_StdPeriph_Driver
 STMSPDSRCDIR = $(STMSPDDIR)/src
 STMSPDINCDIR = $(STMSPDDIR)/inc
+DEBUG_CM3_DIR = $(PIOSCOMMONLIB)/Debug
+DEBUG_CM3_DIR_INC = $(DEBUG_CM3_DIR)/inc
 OPUAVOBJINC = $(OPUAVOBJ)/inc
 PYMITE = $(FLIGHTLIB)/PyMite
 PYMITELIB = $(PYMITE)/lib
@@ -118,14 +122,14 @@ SRC += ${OPMODULEDIR}/System/systemmod.c
 SRC += $(OPSYSTEM)/revolution.c
 SRC += $(OPSYSTEM)/pios_board.c
 SRC += $(OPSYSTEM)/pios_usb_board_data.c
-SRC += $(OPSYSTEM)/alarms.c
+SRC += $(FLIGHTLIB)/alarms.c
 SRC += $(OPUAVTALK)/uavtalk.c
 SRC += $(OPUAVOBJ)/uavobjectmanager.c
 SRC += $(OPUAVOBJ)/eventdispatcher.c
 
 #ifeq ($(DEBUG),YES)
-SRC += $(OPSYSTEM)/dcc_stdio.c
-SRC += $(OPSYSTEM)/cm3_fault_handlers.c
+SRC += $(DEBUG_CM3_DIR)/dcc_stdio.c
+SRC += $(DEBUG_CM3_DIR)/cm3_fault_handlers.c
 #endif
 
 SRC += $(FLIGHTLIB)/CoordinateConversions.c
@@ -136,6 +140,7 @@ SRC += $(FLIGHTLIB)/insgps13state.c
 SRC += $(FLIGHTLIB)/taskmonitor.c
 SRC += $(FLIGHTLIB)/sanitycheck.c
 SRC += $(MATHLIB)/sin_lookup.c
+SRC += $(MATHLIB)/misc_math.c
 SRC += $(MATHLIB)/pid.c
 
 ## For RFM22b
@@ -161,7 +166,7 @@ SRC += $(PIOSCOMMON)/pios_com.c
 SRC += $(PIOSCOMMON)/pios_rfm22b.c
 SRC += $(PIOSCOMMON)/pios_rcvr.c
 SRC += $(PIOSCOMMON)/pios_flash_jedec.c
-SRC += $(PIOSCOMMON)/pios_flashfs_objlist.c
+SRC += $(PIOSCOMMON)/pios_flashfs_logfs.c
 SRC += $(PIOSCOMMON)/printf-stdarg.c
 SRC += $(PIOSCOMMON)/pios_usb_desc_hid_cdc.c
 SRC += $(PIOSCOMMON)/pios_usb_desc_hid_only.c
@@ -218,6 +223,7 @@ EXTRAINCDIRS  += $(OPUAVSYNTHDIR)
 EXTRAINCDIRS  += $(BOOTINC)
 EXTRAINCDIRS  += $(PYMITEINC)
 EXTRAINCDIRS  += $(HWDEFSINC)
+EXTRAINCDIRS  += $(DEBUG_CM3_DIR_INC)
 
 # Generate intermediate code
 gencode: ${OUTDIR}/pmlib_img.c ${OUTDIR}/pmlib_nat.c ${OUTDIR}/pmlibusr_img.c ${OUTDIR}/pmlibusr_nat.c ${OUTDIR}/pmfeatures.h 

@@ -1,15 +1,13 @@
 /**
- ******************************************************************************
+ *****************************************************************************
+ * @file       pios_board.c
+ * @author     The OpenPilot Team, http://www.openpilot.org Copyright (C) 2010.
+ * @author     PhoenixPilot, http://github.com/PhoenixPilot, Copyright (C) 2012
  * @addtogroup OpenPilotSystem OpenPilot System
  * @{
  * @addtogroup OpenPilotCore OpenPilot Core
  * @{
- *
- * @file       pios_board.c
- * @author     The OpenPilot Team, http://www.openpilot.org Copyright (C) 2010.
- * @brief      Defines board specific static initializers for hardware for the OpenPilot board.
- * @see        The GNU Public License (GPL) Version 3
- *
+ * @brief Defines board specific static initializers for hardware for the CopterControl board.
  *****************************************************************************/
 /* 
  * This program is free software; you can redistribute it and/or modify 
@@ -108,47 +106,20 @@ static const struct pios_exti_cfg pios_exti_mpu6000_cfg __exti_config = {
 	},
 };
 
-static const struct pios_mpu6000_cfg pios_mpu6000_cfg = {
+static const struct pios_mpu60x0_cfg pios_mpu6000_cfg = {
 	.exti_cfg = &pios_exti_mpu6000_cfg,
-	.Fifo_store = PIOS_MPU6000_FIFO_TEMP_OUT | PIOS_MPU6000_FIFO_GYRO_X_OUT | PIOS_MPU6000_FIFO_GYRO_Y_OUT | PIOS_MPU6000_FIFO_GYRO_Z_OUT,
+	.Fifo_store = PIOS_MPU60X0_FIFO_TEMP_OUT | PIOS_MPU60X0_FIFO_GYRO_X_OUT | PIOS_MPU60X0_FIFO_GYRO_Y_OUT | PIOS_MPU60X0_FIFO_GYRO_Z_OUT,
 	// Clock at 8 khz, downsampled by 8 for 500 Hz
 	.Smpl_rate_div = 15,
-	.interrupt_cfg = PIOS_MPU6000_INT_CLR_ANYRD,
-	.interrupt_en = PIOS_MPU6000_INTEN_DATA_RDY,
-	.User_ctl = PIOS_MPU6000_USERCTL_FIFO_EN | PIOS_MPU6000_USERCTL_DIS_I2C,
-	.Pwr_mgmt_clk = PIOS_MPU6000_PWRMGMT_PLL_X_CLK,
-	.filter = PIOS_MPU6000_LOWPASS_256_HZ,
-	.orientation = PIOS_MPU6000_TOP_180DEG
+	.interrupt_cfg = PIOS_MPU60X0_INT_CLR_ANYRD,
+	.interrupt_en = PIOS_MPU60X0_INTEN_DATA_RDY,
+	.User_ctl = PIOS_MPU60X0_USERCTL_FIFO_EN | PIOS_MPU60X0_USERCTL_DIS_I2C,
+	.Pwr_mgmt_clk = PIOS_MPU60X0_PWRMGMT_PLL_X_CLK,
+	.filter = PIOS_MPU60X0_LOWPASS_256_HZ,
+	.orientation = PIOS_MPU60X0_TOP_180DEG
 };
 #endif /* PIOS_INCLUDE_MPU6000 */
 
-static const struct flashfs_cfg flashfs_w25x_cfg = {
-	.table_magic = 0x85FB3C35,
-	.obj_magic = 0x3015AE71,
-	.obj_table_start = 0x00000010,
-	.obj_table_end = 0x00001000,
-	.sector_size = 0x00001000,
-	.chip_size = 0x00080000,
-};
-
-static const struct pios_flash_jedec_cfg flash_w25x_cfg = {
-	.sector_erase = 0x20,
-	.chip_erase = 0x60
-};
-
-static const struct flashfs_cfg flashfs_m25p_cfg = {
-	.table_magic = 0x85FB3D35,
-	.obj_magic = 0x3015A371,
-	.obj_table_start = 0x00000010,
-	.obj_table_end = 0x00010000,
-	.sector_size = 0x00010000,
-	.chip_size = 0x00200000,
-};
-
-static const struct pios_flash_jedec_cfg flash_m25p_cfg = {
-	.sector_erase = 0xD8,
-	.chip_erase = 0xC7
-};
 #include <pios_board_info.h>
 /**
  * PIOS_Board_Init()
@@ -189,14 +160,16 @@ void PIOS_Board_Init(void) {
 
 #endif
 
+	uintptr_t flash_id;
+	uintptr_t fs_id;
 	switch(bdinfo->board_rev) {
 		case BOARD_REVISION_CC:
-			PIOS_Flash_Jedec_Init(pios_spi_flash_accel_id, 1, &flash_w25x_cfg);	
-			PIOS_FLASHFS_Init(&flashfs_w25x_cfg);
+			PIOS_Flash_Jedec_Init(&flash_id, pios_spi_flash_accel_id, 1, &flash_w25x_cfg);
+			PIOS_FLASHFS_Logfs_Init(&fs_id, &flashfs_w25x_cfg, &pios_jedec_flash_driver, flash_id);
 			break;
 		case BOARD_REVISION_CC3D:
-			PIOS_Flash_Jedec_Init(pios_spi_flash_accel_id, 0, &flash_m25p_cfg);	
-			PIOS_FLASHFS_Init(&flashfs_m25p_cfg);
+			PIOS_Flash_Jedec_Init(&flash_id, pios_spi_flash_accel_id, 0, &flash_m25p_cfg);
+			PIOS_FLASHFS_Logfs_Init(&fs_id, &flashfs_m25p_cfg, &pios_jedec_flash_driver, flash_id);
 			break;
 		default:
 			PIOS_DEBUG_Assert(0);
@@ -807,16 +780,16 @@ void PIOS_Board_Init(void) {
 			HwSettingsGyroRangeGet(&gyro_range);
 			switch(gyro_range) {
 				case HWSETTINGS_GYRORANGE_250:
-					PIOS_MPU6000_SetGyroRange(PIOS_MPU6000_SCALE_250_DEG);
+					PIOS_MPU6000_SetGyroRange(PIOS_MPU60X0_SCALE_250_DEG);
 					break;
 				case HWSETTINGS_GYRORANGE_500:
-					PIOS_MPU6000_SetGyroRange(PIOS_MPU6000_SCALE_500_DEG);
+					PIOS_MPU6000_SetGyroRange(PIOS_MPU60X0_SCALE_500_DEG);
 					break;
 				case HWSETTINGS_GYRORANGE_1000:
-					PIOS_MPU6000_SetGyroRange(PIOS_MPU6000_SCALE_1000_DEG);
+					PIOS_MPU6000_SetGyroRange(PIOS_MPU60X0_SCALE_1000_DEG);
 					break;
 				case HWSETTINGS_GYRORANGE_2000:
-					PIOS_MPU6000_SetGyroRange(PIOS_MPU6000_SCALE_2000_DEG);
+					PIOS_MPU6000_SetGyroRange(PIOS_MPU60X0_SCALE_2000_DEG);
 					break;
 			}
 
@@ -824,16 +797,16 @@ void PIOS_Board_Init(void) {
 			HwSettingsAccelRangeGet(&accel_range);
 			switch(accel_range) {
 				case HWSETTINGS_ACCELRANGE_2G:
-					PIOS_MPU6000_SetAccelRange(PIOS_MPU6000_ACCEL_2G);
+					PIOS_MPU6000_SetAccelRange(PIOS_MPU60X0_ACCEL_2G);
 					break;
 				case HWSETTINGS_ACCELRANGE_4G:
-					PIOS_MPU6000_SetAccelRange(PIOS_MPU6000_ACCEL_4G);
+					PIOS_MPU6000_SetAccelRange(PIOS_MPU60X0_ACCEL_4G);
 					break;
 				case HWSETTINGS_ACCELRANGE_8G:
-					PIOS_MPU6000_SetAccelRange(PIOS_MPU6000_ACCEL_8G);
+					PIOS_MPU6000_SetAccelRange(PIOS_MPU60X0_ACCEL_8G);
 					break;
 				case HWSETTINGS_ACCELRANGE_16G:
-					PIOS_MPU6000_SetAccelRange(PIOS_MPU6000_ACCEL_16G);
+					PIOS_MPU6000_SetAccelRange(PIOS_MPU60X0_ACCEL_16G);
 					break;
 			}
 #endif /* PIOS_INCLUDE_MPU6000 */

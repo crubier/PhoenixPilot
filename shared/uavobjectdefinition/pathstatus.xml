@@ -9,8 +9,6 @@
       <logging updatemode="onchange" period="0"/>
     </meta>
     <data>
-      <data name="UID" units="" type="int16" elements="1" default="0"/>
-      <!-- unique ID confirmed with pathfollower in pathstatus to acknowledge a change in PathDesired -->
       <data name="Status" units="" type="enum" elements="1" options="InProgress,Completed,Warning,Critical"/>
       <data name="fractional_progress" units="" type="float" elements="1"/>
       <data name="error" units="m" type="float" elements="1"/>

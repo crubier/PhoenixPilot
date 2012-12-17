@@ -11,7 +11,23 @@
     <data>
       <data name="Position" units="m" type="float" elementnames="North, East, Down"/>
       <data name="Velocity" units="m/s" type="float" elements="1"/>
-      <data name="Action" units="" type="uint8" elements="1"/>
+      <data name="Mode" units="" type="enum" elements="1">
+        <options>
+          <option>FlyEndpoint</option>
+          <option>FlyVector</option>
+          <option>FlyCircleRight</option>
+          <option>FlyCircleLeft</option>
+          <option>DriveEndpoint</option>
+          <option>DriveVector</option>
+          <option>DriveCircleLeft</option>
+          <option>DriveCircleRight</option>
+          <option>HoldPosition</option>
+          <option>CirclePositionLeft</option>
+          <option>CirclePositionRight</option>
+          <option>Land</option>
+          <option>Stop</option>
+        </options>
+      </data>
     </data>
   </object>
 </xml>
